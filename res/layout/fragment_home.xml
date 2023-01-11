@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Home">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="414dp"
+        android:layout_height="61dp"
+        android:gravity="center"
+        android:text="Temperature Logger"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#9C27B0"
+        android:textDirection="locale"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="415dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="4dp"
+        android:background="#4C27B0"
+        android:backgroundTint="#9427AF"
+        android:foregroundTint="#9B27AF"
+        android:shadowColor="#9C27B0"
+        android:text="Make a graph"
+        android:textColor="#FFFFfF"
+        android:textColorHighlight="#9F2EB2"
+        android:textSize="20sp"
+        app:iconTint="#9B27AF"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#9C27B0"
+        app:strokeColor="#9B27AF" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="472dp"
+        android:layout_height="92dp"
+        android:background="#4C27B0"
+        android:backgroundTint="#9427AF"
+        android:foregroundTint="#9B27AF"
+        android:shadowColor="#9C27B0"
+        android:text="See previous values"
+        android:textColor="#FFFFfF"
+        android:textColorHighlight="#9F2EB2"
+        android:textSize="20sp"
+        app:iconTint="#9B27AF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#9C27B0"
+        app:strokeColor="#9B27AF" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="328dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:text="Current temperature:"
+        android:textColor="#9B27AF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.797" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="295dp"
+        android:layout_height="192dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#A53CB7"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
