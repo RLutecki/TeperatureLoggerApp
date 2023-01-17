@@ -1,87 +1,66 @@
-package com.example.loggerfinal.Fragments
-//import com.jjoe64.graphview.GraphView
-//import com.jjoe64.graphview.Viewport
-//import com.jjoe64.graphview.series.DataPoint
-//import com.jjoe64.graphview.series.LineGraphSeries
+package com.example.Graph
+
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.util.AttributeSet
-import android.view.View
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import io.data2viz.charts.chart.Chart
+import io.data2viz.charts.chart.chart
+import io.data2viz.charts.chart.discrete
+import io.data2viz.charts.chart.mark.area
+import io.data2viz.charts.chart.quantitative
+import io.data2viz.geom.Size
+import io.data2viz.viz.VizContainerView
 
-class Graph(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
-
-    private val dataSet = mutableListOf<DataPoint>()
-
-    private val dataPointPaint = Paint().apply {
-        color = Color.BLUE
-        strokeWidth = 7f
-        style = Paint.Style.STROKE
+class GraphMain : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(CanadaChart(this))
     }
-
-    private val dataPointFillPaint = Paint().apply {
-        color = Color.WHITE
-    }
-
-    private val dataPointLinePaint = Paint().apply {
-        color = Color.BLUE
-        strokeWidth = 7f
-        isAntiAlias = true
-    }
-
-    private val axisLinePaint = Paint().apply {
-        color = Color.RED
-        strokeWidth = 10f
-    }
-
-    fun setData(newDataSet: List<DataPoint>) {
-        xMin = newDataSet.minBy { it.xVal }?.xVal ?: 0
-        xMax = newDataSet.maxBy { it.xVal }?.xVal ?: 0
-        yMin = newDataSet.minBy { it.yVal }?.yVal ?: 0
-        yMax = newDataSet.maxBy { it.yVal }?.yVal ?: 0
-        dataSet.clear()
-        dataSet.addAll(newDataSet)
-        invalidate()
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
-        dataSet.forEachIndexed { index, currentDataPoint ->
-            val realX = currentDataPoint.xVal.toRealX()
-            val realY = currentDataPoint.yVal.toRealY()
-
-            if (index < dataSet.size - 1) {
-                val nextDataPoint = dataSet[index + 1]
-                val startX = currentDataPoint.xVal.toRealX()
-                val startY = currentDataPoint.yVal.toRealY()
-                val endX = nextDataPoint.xVal.toRealX()
-                val endY = nextDataPoint.yVal.toRealY()
-                canvas.drawLine(startX, startY, endX, endY, dataPointLinePaint)
-            }
-
-            canvas.drawCircle(realX, realY, 7f, dataPointFillPaint)
-            canvas.drawCircle(realX, realY, 7f, dataPointPaint)
-        }
-
-        canvas.drawLine(0f, 0f, 0f, height.toFloat(), axisLinePaint)
-        canvas.drawLine(0f, height.toFloat(), width.toFloat(), height.toFloat(), axisLinePaint)
-    }
-    private fun Int.toRealX() = toFloat() / xMax * width
-    private fun Int.toRealY() = toFloat() / yMax * height
-
 }
 
-data class DataPoint(
-    val xVal: Int,
-    val yVal: Int
+class CanadaChart(context: Context) : VizContainerView(context) {
+
+    private val chart: Chart<PopCount> = chart(canPop) {
+        size = Size(vizSize, vizSize)
+        title = "Population of Canada 1851–2001 (Statistics Canada)"
+
+        // Create a discrete dimension for the year of the census
+        val year = discrete({ domain.year })
+
+        // Create a continuous numeric dimension for the population
+        val population = quantitative({ domain.population }) {
+            name = "Population of Canada (in millions)"
+        }
+
+        // Using a discrete dimension for the X-axis and a continuous one for the Y-axis
+        area(year, population)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        chart.size = Size(vizSize, vizSize * h / w)
+    }
+}
+
+const val vizSize = 500.0
+
+data class PopCount(val year: Int, val population: Double)
+
+val canPop = listOf(
+    PopCount(1851, 2.436),
+    PopCount(1861, 3.23),
+    PopCount(1871, 3.689),
+    PopCount(1881, 4.325),
+    PopCount(1891, 4.833),
+    PopCount(1901, 5.371),
+    PopCount(1911, 7.207),
+    PopCount(1921, 8.788),
+    PopCount(1931, 10.377),
+    PopCount(1941, 11.507),
+    PopCount(1951, 13.648),
+    PopCount(1961, 17.78),
+    PopCount(1971, 21.046),
+    PopCount(1981, 23.774),
+    PopCount(1991, 26.429),
+    PopCount(2001, 30.007)
 )
-
-
-
-
-private var xMin = 0
-    private var xMax = 0
-    private var yMin = 0
-    private var yMax = 0
